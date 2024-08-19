@@ -20,20 +20,20 @@ class HDCarousel {
     }
 
     this.init();
-    console.log(this);
   }
 
-  async init() {
-    await this.setMinItems();
+  init() {
+    this.item.width = this.getSize();
+    console.log(this.item.width);
 
-    this.item.width = await this.getSize();
     this.el.style.height = this.items[0].clientHeight + "px";
+    this.setMinItems();
 
-    await this.clone("prev");
-    await this.build();
+    this.clone("prev");
+    this.build();
   }
 
-  async build() {
+  build() {
     let l = this.item.width * -1;
     for (let i = 0; i < this.items.length; i += 1) {
       this.items[i].style.width = this.item.width + "px";
@@ -49,7 +49,7 @@ class HDCarousel {
     }
   }
 
-  async setMinItems() {
+  setMinItems() {
     const minItems = this.size + 2;
     if (this.items.length < minItems) {
       let itemsLength = this.items.length;
@@ -61,17 +61,17 @@ class HDCarousel {
     }
 
     if (this.items.length < minItems) {
-      await this.setMinItems();
+      this.setMinItems();
     }
   }
 
-  async getSize() {
+  getSize() {
     let w = this.el.clientWidth;
     w = w / this.size - this.gap;
     return w;
   }
 
-  async clone(pos = "next") {
+  clone(pos = "next") {
     let item = 0;
     if (pos === "next") {
       item = this.items[0];
@@ -88,7 +88,7 @@ class HDCarousel {
     item.remove();
   }
 
-  async move(el) {
+  move(el) {
     let pos = el.getAttribute("data-dir");
     if (pos === "next") {
       this.next();
@@ -97,14 +97,14 @@ class HDCarousel {
     }
   }
 
-  async next() {
-    await this.clone("next");
-    await this.build();
+  next() {
+    this.clone("next");
+    this.build();
   }
 
-  async prev() {
-    await this.clone("prev");
-    await this.build();
+  prev() {
+    this.clone("prev");
+    this.build();
   }
 
   setActive() {
@@ -117,6 +117,6 @@ class HDCarousel {
     }
   }
 }
-const element = document.getElementById("hdcarousel-id");
-// const element = document.querySelector("hdcarousel"); почему при такой записи у меня в this el=null после init?
+// const element = document.getElementById("hdcarousel-id");
+const element = document.querySelector(".hdcarousel"); //почему при такой записи у меня в this el=null после init?
 new HDCarousel(element);

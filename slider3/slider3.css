@@ -1,0 +1,32 @@
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.slider-container {
+  position: relative;
+  overflow-x: hidden;
+  height: 200px;
+}
+
+.slider-width {
+  position: absolute;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  left: 0;
+  top: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.item {
+  background-color: antiquewhite;
+  width: 300px;
+  height: 200px;
+  margin: 0 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
